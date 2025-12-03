@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import Container from './Container';
-import { AuthContext } from '../../Context/AuthContext';
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
-    const { user, signOutUser, loading } = useContext(AuthContext);
+    const { user,  signOutUserFunction, loading } = useAuth();
     const links = <>
         <li><NavLink to={"/"} className={"font-semebold"}>Home</NavLink></li>
         <li><NavLink to={"/"} className={"font-semebold"}>Home</NavLink></li>
@@ -43,12 +43,12 @@ const Navbar = () => {
 
                                     <div className="dropdown dropdown-end">
                                         <div tabIndex={0} role="button" className=" m-1">
-                                            <img className='w-10 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
+                                            <img className='w-10 h-10 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
 
                                         </div>
                                         <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm space-y-3 text-center">
                                             <Link to={"/profile"} className="tooltip" data-tip="Click to Profile">
-                                                <img className='w-25 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
+                                                <img className='w-25 h-25 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
                                             </Link>
                                             <NavLink to={`/dashboard`} className={" text-center font-semebold hover:underline"}>Dashboard</NavLink>
                                             <NavLink to="/my-activities" className=" hover:underline">
@@ -57,7 +57,7 @@ const Navbar = () => {
 
                                             <h2 className='text-xl font-semebold'>{user?.displayName}</h2>
                                             <p className='text-black'>{user?.email}</p>
-                                            <button onClick={signOutUser} className={"btn bg-[#297B33] hover:bg-[#82B532]  text-white"}>Sign Out</button>
+                                            <button onClick={signOutUserFunction} className={"btn bg-[#297B33] hover:bg-[#82B532]  text-white"}>Sign Out</button>
                                         </ul>
                                     </div>
                                 ) : (
